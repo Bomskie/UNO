@@ -12,8 +12,22 @@ public class ClientMessageHandlerFactory implements IMessageHandlerFactory {
         switch (simpleType){
             case "LoginResultMessage":
                 return new LoginResultHandler();
-
-
+            case "CreateGameResultMessage":
+                return new CreateGameResultHandler();
+            case "JoinGameResultMessage":
+                return new JoinGameResultHandler();
+            case "LobbyUpdateMessage":
+                return new LobbyUpdateHandler();
+            case "StartGameResultMessage":
+                return new StartGameResultMessageHandler();
+            case "GiveCardMessage":
+                return new GiveCardMessageHandler();
+            case "AdvanceTurnMessage":
+                return new AdvanceTurnMessageHandler();
+            case "PlayCardResultMessage":
+                return new PlayCardResultMessageHandler();
+            case "FinishedGameResultMessage":
+                return new FinishedGameResultHandler();
             default:
                 return null;
         }

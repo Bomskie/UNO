@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="MainPane" prefHeight="481.0" prefWidth="732.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controllers.GameController">
    <children>
-      <Pane layoutX="204.0" layoutY="114.0" prefHeight="120.0" prefWidth="92.0" style="-fx-background-color: Black;">
+      <Pane fx:id="Deck" layoutX="204.0" layoutY="114.0" onMouseClicked="#RequestCard" prefHeight="120.0" prefWidth="92.0" style="-fx-background-color: Black;">
          <children>
             <Circle fill="#ff2121" layoutX="48.0" layoutY="59.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
          </children>
       </Pane>
-      <Pane fx:id="TopCard" layoutX="419.0" layoutY="114.0" prefHeight="120.0" prefWidth="92.0" style="-fx-background-color: Blue;">
+      <Pane fx:id="fxTopCard" layoutX="419.0" layoutY="114.0" prefHeight="120.0" prefWidth="92.0" style="-fx-background-color: Blue;">
          <children>
             <Circle fill="TRANSPARENT" layoutX="46.0" layoutY="60.0" radius="40.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="4.0" />
-            <Text fx:id="TopCardText" fill="#fffefe" layoutX="32.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" textAlignment="CENTER" wrappingWidth="28.13671875">
+            <Text fx:id="fxTopCardText" fill="#fffefe" layoutX="32.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" textAlignment="CENTER" wrappingWidth="28.13671875">
                <font>
                   <Font name="Calibri Bold" size="43.0" />
                </font>
@@ -28,32 +28,10 @@
       </Pane>
       <ScrollPane fx:id="ScrollPane" fitToWidth="true" layoutX="14.0" layoutY="350.0" prefHeight="127.0" prefWidth="705.0" vbarPolicy="NEVER">
         <content>
-          <HBox fx:id="SpelerHand" minHeight="0.0" minWidth="0.0" prefHeight="125.0" prefWidth="703.0" spacing="10.0" style="-fx-background-color: Gray;">
-               <children>
-               <Pane layoutX="14.0" layoutY="14.0" prefHeight="94.0" prefWidth="65.0" style="-fx-background-color: Blue;">
-                  <children>
-                     <Circle fill="TRANSPARENT" layoutX="33.0" layoutY="47.0" radius="32.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="4.0" />
-                     <Text fill="#fffefe" layoutX="19.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" textAlignment="CENTER" wrappingWidth="28.13671875">
-                        <font>
-                           <Font name="Calibri Bold" size="43.0" />
-                        </font>
-                     </Text>
-                  </children>
-               </Pane>
-               <Pane layoutX="50.0" layoutY="14.0" prefHeight="94.0" prefWidth="65.0" style="-fx-background-color: Red;">
-                   <children>
-                       <Circle fill="TRANSPARENT" layoutX="33.0" layoutY="47.0" radius="32.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="4.0" />
-                       <Text fill="#fffefe" layoutX="19.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6" textAlignment="CENTER" wrappingWidth="28.13671875">
-                           <font>
-                               <Font name="Calibri Bold" size="43.0" />
-                           </font>
-                       </Text>
-                   </children>
-               </Pane>
-               </children>
-          </HBox>
+          <HBox fx:id="SpelerHand" minHeight="0.0" minWidth="0.0" prefHeight="125.0" prefWidth="703.0" spacing="10.0" style="-fx-background-color: Gray;" />
 
         </content>
       </ScrollPane>
+      <VBox fx:id="PlayerList" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" />
    </children>
 </AnchorPane>

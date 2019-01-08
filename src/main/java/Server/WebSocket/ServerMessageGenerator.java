@@ -1,11 +1,11 @@
 package Server.WebSocket;
 
+import Shared.Messages.*;
+import Shared.Models.Card;
 import Shared.Models.Game;
 import Shared.Models.User;
-import Shared.Messages.CurrentOpenGamesResultMessage;
-import Shared.Messages.LoginResultMessage;
-import Shared.Messages.RegisterResultMessage;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class ServerMessageGenerator implements IServerMessageGenerator {
@@ -16,22 +16,58 @@ public class ServerMessageGenerator implements IServerMessageGenerator {
         this.serverSocket = serverSocket;
     }
 
-    public void notifyLoginResult(String sessionId, int error, User user)
-    {
+    public void notifyLoginResult(String sessionId, int error, User user) {
         LoginResultMessage msg = new LoginResultMessage(user,error);
         serverSocket.sendTo(sessionId, msg);
     }
 
-    /*
-    public void notifyRegisterResult(String sessionId, boolean result, String message){
-        RegisterResultMessage msg = new RegisterResultMessage(result,message);
+    public void notifyCreateGameResult(String sessionId, boolean succes, String error, String lobbyId) {
+        CreateGameResultMessage msg = new CreateGameResultMessage(lobbyId, error, succes);
         serverSocket.sendTo(sessionId, msg);
     }
- */
-    public void notifyCurrentOpengames(String sessionid, List<Game> gameList) {
-        CurrentOpenGamesResultMessage msg = new CurrentOpenGamesResultMessage(gameList);
-        serverSocket.sendTo(sessionid,msg);
+
+    @Override
+    public void notifyJoinLobbyResult(String sessionId, boolean succes, String error, String lobbyId) {
+        JoinGameResultMessage msg = new JoinGameResultMessage(lobbyId, error, succes);
+        serverSocket.sendTo(sessionId,msg);
     }
+
+    @Override
+    public void notifyLobbyUpdate(String sessionId, String names) {
+        LobbyUpdateMessage msg = new LobbyUpdateMessage(names);
+        serverSocket.sendTo(sessionId, msg);
+    }
+
+    @Override
+    public void notifyStartGame(String sessionId, String lobbyId, String usersAsString) {
+        StartGameResultMessage msg = new StartGameResultMessage(lobbyId, usersAsString);
+        serverSocket.sendTo(sessionId, msg);
+    }
+
+    @Override
+    public void notifyGiveCard(String sessionId, Card card) {
+        GiveCardMessage msg = new GiveCardMessage(card);
+        serverSocket.sendTo(sessionId, msg);
+    }
+
+    @Override
+    public void notifyAdvanceTurn(String sessionId, Card card, String playerTurn) {
+        AdvanceTurnMessage msg = new AdvanceTurnMessage(playerTurn, card);
+        serverSocket.sendTo(sessionId, msg);
+    }
+
+    @Override
+    public void notifyPlayedCard(String sessionId, Card card, boolean validMove) {
+        PlayCardResultMessage msg = new PlayCardResultMessage(card,validMove);
+        serverSocket.sendTo(sessionId,msg);
+    }
+
+    @Override
+    public void notifyFinishedGame(String sessionId, String userName) {
+        FinishedGameResultMessage msg = new FinishedGameResultMessage(userName);
+        serverSocket.sendTo(sessionId, msg);
+    }
+
 }
 
 

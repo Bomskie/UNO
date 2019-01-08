@@ -17,8 +17,14 @@ public class WindowController {
 
     private static Stage loginStage;
     private static Stage menuStage;
+    private static Stage lobbyStage;
+    private static Stage gameStage;
+
 
     private static LoginController loginController;
+    private static MenuController menuController;
+    private static LobbyController lobbyController;
+    private static GameController gameController;
 
 
     public static WindowController getWindowController(){
@@ -36,17 +42,35 @@ public class WindowController {
             loginController = loader.getController();
 
             loader = new FXMLLoader(getClass().getResource("/FXML/Menu.fxml"));
-            Parent rootRegister = loader.load();
+            Parent rootMenu = loader.load();
             menuStage = new Stage();
             menuStage.setTitle("UNO Menu");
             menuStage.setResizable(false);
-            menuStage.setScene(new Scene(rootRegister, 400, 400));
-            menuStage = loader.getController();
+            menuStage.setScene(new Scene(rootMenu, 400, 400));
+            menuController = loader.getController();
+
+            loader = new FXMLLoader(getClass().getResource("/FXML/Lobby.fxml"));
+            Parent rootLobby = loader.load();
+            lobbyStage = new Stage();
+            lobbyStage.setTitle("UNO Lobby");
+            lobbyStage.setResizable(false);
+            lobbyStage.setScene(new Scene(rootLobby, 400, 400));
+            lobbyController = loader.getController();
+
+            loader = new FXMLLoader(getClass().getResource("/FXML/Game.fxml"));
+            Parent rootGame = loader.load();
+            gameStage = new Stage();
+            gameStage.setTitle("UNO Game");
+            gameStage.setResizable(false);
+            gameStage.setScene(new Scene(rootGame, 735, 481));
+            gameController = loader.getController();
         } catch (Exception e) {
             Logger.getInstance().log(e);
         }
     }
 
+    public LobbyController getLobbyController(){return lobbyController;}
+    public GameController getGameController(){return gameController;}
 
     public void showLogin() {
         setStage(loginStage);
@@ -55,6 +79,16 @@ public class WindowController {
 
     public void showMenu(){
         setStage(menuStage);
+        showScene();
+    }
+
+    public void showLobby(){
+        setStage(lobbyStage);
+        showScene();
+    }
+
+    public void showGame(){
+        setStage(gameStage);
         showScene();
     }
 

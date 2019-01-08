@@ -13,7 +13,20 @@ public class ServerMessageHandleFactory implements IMessageHandlerFactory {
         {
             case "LoginMessage":
                 return new LoginMessageHandler(serverClient);
-
+            case "CreateGameMessage":
+                return new createGameMessageHandler(serverClient);
+            case "JoinGameMessage":
+                return new JoinGameMessageHandler(serverClient);
+            case "StartGameMessage":
+                return new StartGameMessageHandler(serverClient);
+            case "CheckGameInMessage":
+                return new CheckGameInMessageHandler(serverClient);
+            case "PlayCardMessage":
+                return new PlayCardMessageHandler(serverClient);
+            case "RequestCardMessage":
+                return new RequestCardMessageHandler(serverClient);
+            case "FinishedGameMessage":
+                return new FinishedGameMessageHandler(serverClient);
             default:
                 return null;
         }
