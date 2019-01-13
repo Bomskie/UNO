@@ -1,6 +1,7 @@
 package server.websocket;
 
 import shared.models.Card;
+import shared.models.Game;
 
 public interface IServerClient {
     void loginUser(String Username, String Password, String sessionID);
@@ -13,7 +14,8 @@ public interface IServerClient {
 
     void checkUserIn(String userName, String lobbyId);
 
-    void advanceTurn(String userName, Card topCard, String playerTurn);
+    //void advanceTurn(String userName, Card topCard, String playerTurn);
+    void advanceTurn(Game game);
 
     void handleCardPlayed(String userName, String lobbyId, Card card);
 

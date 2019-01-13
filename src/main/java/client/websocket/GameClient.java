@@ -28,7 +28,7 @@ public class GameClient implements IGameClient {
                 case 1:
                     windowController.showMsg("Login", "niet gelukt");
                 case 2:
-
+                    windowController.showMsg("Login", "al ingelogd");
                     break;
             }
         }else{

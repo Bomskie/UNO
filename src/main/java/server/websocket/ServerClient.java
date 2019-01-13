@@ -35,7 +35,8 @@ public class ServerClient implements IServerClient {
         onlineClientsByNameToSessionId.put(user.getUsername(), Sessionid);
         messageGenerator.notifyLoginResult(Sessionid, 0, user);
 
-        if (!onlineClientsByNameToSessionId.containsValue(Username)) {
+
+        if (onlineClientsByNameToSessionId.get(Username) == null) {
             if (restClient.usernameExists(Username)){
                 String pw = restClient.getPassword(Username);
                 if (pw.equals(Password)){
@@ -93,7 +94,7 @@ public class ServerClient implements IServerClient {
         Lobby lobby = currentLobbys.get(lobbyId);
         if (lobby != null){
             currentLobbys.remove(lobbyId);
-            Game game = new Game(lobby.getUsers(), this);
+            Game game = new Game(lobby.getUsers());
             currentGames.put(lobbyId, game);
             for (String s: game.getPlayers()) {
                 String sessionId = onlineClientsByNameToSessionId.get(s);
@@ -105,13 +106,31 @@ public class ServerClient implements IServerClient {
     @Override
     public void checkUserIn(String userName, String lobbyId) {
         Game game = currentGames.get(lobbyId);
-        game.checkPlayerIn(userName);
+        if(game.checkPlayerIn(userName)){
+            game.startGame();
+            for (int i=0;i<7;i++){
+                for (String player : game.getPlayers()) {
+                    sendCardToGameUser(game.requestCard(), player);
+                }
+            }
+            advanceTurn(game);
+        }
     }
 
+    /*
     @Override
     public void advanceTurn(String userName, Card topCard, String playerTurn) {
         String sessionId = onlineClientsByNameToSessionId.get(userName);
         messageGenerator.notifyAdvanceTurn(sessionId, topCard, playerTurn);
+    }
+    */
+    @Override
+    public void advanceTurn(Game game){
+        for (String s: game.getPlayers()){
+            String sessionId = onlineClientsByNameToSessionId.get(s);
+            messageGenerator.notifyAdvanceTurn(sessionId, game.getStackTopCard(), game.getPlayers().get(game.getPlayerTurn()));
+            //serverClient.advanceTurn(s, stackTopCard(), players.get(playerTurn));
+        }
     }
 
     @Override
@@ -122,6 +141,7 @@ public class ServerClient implements IServerClient {
         messageGenerator.notifyPlayedCard(sessionId,card,canPlay);
         if (canPlay){
             game.nextTurn();
+            advanceTurn(game);
         }
     }
 
@@ -130,6 +150,7 @@ public class ServerClient implements IServerClient {
         Game game = currentGames.get(lobbyId);
         sendCardToGameUser(game.requestCard(), userName);
         game.nextTurn();
+        advanceTurn(game);
     }
 
     @Override

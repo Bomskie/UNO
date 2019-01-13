@@ -17,6 +17,16 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.3.0.603</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.9</version>
+            </plugin>
         </plugins>
     </build>
 
@@ -112,6 +122,15 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>6.0.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.7.9</version>
+        </dependency>
     </dependencies>
 
+    <properties>
+        <sonar.coverage.exclusions> **/main/java/client/**/**, **/main/java/server/**/**, **/main/java/shared/messages/**, **/main/java/shared/messaging/**, **/main/java/shared/logging/**, **/main/java/shared/serialization/**, **/main/java/shared/serialization/**, **/main/java/shared/models/Lobby**</sonar.coverage.exclusions>
+        <sonar.coverage.inclusions>**/main/java/shared/models/**</sonar.coverage.inclusions>
+    </properties>
 </project>

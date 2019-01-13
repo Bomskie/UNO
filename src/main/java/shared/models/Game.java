@@ -1,6 +1,5 @@
 package shared.models;
 
-import server.websocket.ServerClient;
 import shared.Color;
 
 import java.util.ArrayList;
@@ -10,15 +9,13 @@ import java.util.Random;
 public class Game {
     private List<String> players;
     private List<Card> deck;
-    private ServerClient serverClient;
     private List<Card> stack;
 
     private int checkedIn = 0;
     private int PlayerTurn = 0;
 
-    public Game(List<String> players, ServerClient serverClient){
+    public Game(List<String> players){
         this.players = players;
-        this.serverClient = serverClient;
         deck = new ArrayList<>();
         stack = new ArrayList<>();
     }
@@ -28,21 +25,13 @@ public class Game {
         if (PlayerTurn > players.size() -1){
             PlayerTurn = 0;
         }
-        giveTurn(PlayerTurn);
+        //giveTurn(PlayerTurn);
     }
 
-    private void giveTurn(int playerTurn) {
-        for (String s: players){
-            serverClient.advanceTurn(s, stackTopCard(), players.get(playerTurn));
-        }
-    }
-
-    private void startGame() {
+    public void startGame() {
         createDeck();
         Shuffle();
-        deal();
         stack.add(giveCard());
-        giveTurn(0);
     }
 
     private Card giveCard(){
@@ -57,14 +46,6 @@ public class Game {
         Card card = deck.get(0);
         deck.remove(0);
         return card;
-    }
-
-    private void deal(){
-        for(int i=0;i<7;i++){
-            for (String player : players) {
-                serverClient.sendCardToGameUser(giveCard(), player);
-            }
-        }
     }
 
     private void Shuffle(){
@@ -112,13 +93,11 @@ public class Game {
 
     private Card stackTopCard(){return stack.get(stack.size() - 1);}
 
-    public void checkPlayerIn(String playerName){
+    public boolean checkPlayerIn(String playerName){
         if (players.contains(playerName)){
             checkedIn++;
         }
-        if (checkedIn == players.size()){
-            startGame();
-        }
+        return checkedIn == players.size();
     }
 
     public List<String> getPlayers() {
@@ -136,15 +115,13 @@ public class Game {
         return giveCard();
     }
 
-    //unitTest Returns
-    public List<Card> getDeck(){return deck;}
-    public Card getStackTopCard(){return stackTopCard();}
-    public int getCheckedIn() {
-        return checkedIn;
-    }
     public int getPlayerTurn() {
         return PlayerTurn;
     }
+
+    //unitTest Returns
+    public List<Card> getDeck(){return deck;}
+    public Card getStackTopCard(){return stackTopCard();}
     public void startGameTest(){
         createDeck();
         Shuffle();

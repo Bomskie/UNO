@@ -23,7 +23,7 @@ public class GameTest {
         List<String> players = new ArrayList<>();
         players.add("player 1");
         players.add("player 2");
-        game = new Game(players, new ServerClient(new ServerMessageGenerator(new UnoWebSocketService())));
+        game = new Game(players);
         game.startGameTest();
     }
 
@@ -51,6 +51,21 @@ public class GameTest {
         card.nummer = 2;
         card.kleur = Color.Geel;
         assertEquals(false, game.playCard(card));
+    }
+
+    @Test
+    public void checkPlayerIn(){
+        assertEquals(false, game.checkPlayerIn("player 1"));
+        assertEquals(false, game.checkPlayerIn("player 3"));
+        assertEquals(true, game.checkPlayerIn("player 2"));
+    }
+
+    @Test
+    public void nextTurn(){
+        game.nextTurn();
+        assertEquals(1, game.getPlayerTurn());
+        game.nextTurn();
+        assertEquals(0, game.getPlayerTurn());
     }
 
     @Test
