@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="MainPane" prefHeight="481.0" prefWidth="732.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controllers.GameController">
+<AnchorPane fx:id="MainPane" prefHeight="481.0" prefWidth="732.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.GameController">
    <children>
       <Pane fx:id="Deck" layoutX="204.0" layoutY="114.0" onMouseClicked="#RequestCard" prefHeight="120.0" prefWidth="92.0" style="-fx-background-color: Black;">
          <children>

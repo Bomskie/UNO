@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controllers.LobbyController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.LobbyController">
    <children>
       <Label fx:id="lLobbyId" layoutX="14.0" layoutY="14.0" text="LOBBYID" />
       <VBox fx:id="vbPlayers" layoutX="11.0" layoutY="42.0" prefHeight="200.0" prefWidth="100.0" />

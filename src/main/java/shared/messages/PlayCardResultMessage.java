@@ -1,0 +1,21 @@
+package shared.messages;
+
+import shared.models.Card;
+
+public class PlayCardResultMessage {
+    private Card card;
+    private boolean validMove;
+
+    public PlayCardResultMessage(Card card, boolean validMove){
+        this.card = card;
+        this.validMove = validMove;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public boolean getValidMove(){
+        return validMove;
+    }
+}
